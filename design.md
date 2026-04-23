@@ -4,9 +4,9 @@ description: Personal portfolio design system for a senior UX/UI Product Designe
 colors:
   primary: "#1A1A1A"
   secondary: "#555555"
-  accent: "#2563EB"
+  accent: "#3f8348"
   surface: "#f9f9f1"
-  surface-subtle: "#F7F7F7"
+  surface-subtle: "#f0f0e8"
   border: "#E5E5E5"
   on-surface: "#1A1A1A"
   on-surface-muted: "#6B7280"
@@ -57,10 +57,6 @@ typography:
     lineHeight: 1
 rounded:
   none: 0px
-  sm: 4px
-  md: 8px
-  lg: 16px
-  full: 9999px
 spacing:
   xs: 4px
   sm: 8px
@@ -75,7 +71,7 @@ components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.surface}"
-    rounded: "{rounded.sm}"
+    rounded: "{rounded.none}"
     padding: "12px 24px"
     typography: "{typography.label}"
   button-primary-hover:
@@ -84,7 +80,7 @@ components:
   button-secondary:
     backgroundColor: "transparent"
     textColor: "{colors.primary}"
-    rounded: "{rounded.sm}"
+    rounded: "{rounded.none}"
     padding: "12px 24px"
     borderColor: "{colors.border}"
   nav-link:
@@ -94,16 +90,24 @@ components:
     textColor: "{colors.primary}"
   card:
     backgroundColor: "{colors.surface}"
-    rounded: "{rounded.sm}"
-    borderColor: "{colors.border}"
+    rounded: "{rounded.none}"
+    border: "none"
     padding: "0px"
+  card-hover:
+    imageTransform: "scale(1.05)"
+    imageTransition: "all 0.25s ease-in-out"
   card-label:
     textColor: "{colors.on-surface-muted}"
     typography: "{typography.label}"
+  card-title-link:
+    textColor: "{colors.accent}"
+  card-title-link-hover:
+    textColor: "{colors.accent}"
+    textDecoration: underline
   tag:
     backgroundColor: "{colors.surface-subtle}"
     textColor: "{colors.secondary}"
-    rounded: "{rounded.full}"
+    rounded: "{rounded.none}"
     padding: "4px 10px"
     typography: "{typography.label}"
 ---
@@ -122,13 +126,13 @@ The palette is deliberately restrained — near-monochrome with a single interac
 
 - **Primary (#1A1A1A):** Near-black used for all headline text and primary actions. Warmer than pure black, avoiding harshness.
 - **Secondary (#555555):** Mid-grey for body copy, navigation links, and secondary labels. Readable without competing with headlines.
-- **Accent (#2563EB):** A confident, professional blue used exclusively for interactive elements — links in hover state, focus rings, and active tags. Signals interaction without dominating.
+- **Accent (#3f8348):** A fresh, confident green used exclusively for interactive elements — linked card titles, contact links, focus rings, and active tags. Signals interaction without dominating.
 - **Surface (#FFFFFF):** Pure white as the primary canvas. The design lives in the open air; backgrounds are always white or near-white.
-- **Surface Subtle (#F7F7F7):** A near-white used for project card hover states, tag backgrounds, and section demarcation. Barely perceptible, keeps the palette clean.
+- **Surface Subtle (#f0f0e8):** A warm near-white used for project card hover states, tag backgrounds, and section demarcation. Complements the cream surface and keeps the palette clean.
 - **Border (#E5E5E5):** A light mid-tone used for card outlines, dividers, and nav underlines. Structural but invisible at a glance.
 - **On Surface Muted (#6B7280):** Used for metadata text — dates, category labels, captions — subordinate to the main content hierarchy.
 
-Colour is used structurally, not decoratively. The accent blue must never appear in decorative illustrations or backgrounds — only on interactive affordances.
+Colour is used structurally, not decoratively. The accent green must never appear in decorative illustrations or backgrounds — only on interactive affordances.
 
 ## Typography
 
@@ -155,20 +159,15 @@ The hero section is asymmetric by intent — a large headline with a single CTA 
 
 Depth is achieved almost entirely through whitespace and proximity, not shadows. Cards are distinguished from the background via a subtle 1px border (`{colors.border}`) rather than drop shadows. This keeps the UI flat and refined.
 
-The one exception is image thumbnails on project cards on hover — a very subtle `box-shadow: 0 4px 16px rgba(0,0,0,0.08)` may appear to lift the card gently. This should feel like lifting a piece of paper, not a material UI elevation.
+There are no exceptions. Cards do not gain shadow on hover — interaction is communicated entirely through image zoom (`scale(1.05)`, `all 0.25s ease-in-out`). No depth layer is ever added. See `card-hover` component tokens.
 
 No blur effects, no glassmorphism. The design is matte and grounded.
 
 ## Shapes
 
-All interactive and container elements use a minimal corner radius. The language is architectural — sharp enough to feel precise, with just enough rounding to feel modern.
+All elements are fully square — `border-radius: 0px` across buttons, cards, tags, inputs, and containers without exception. The sharp geometry is a deliberate echo of Space Grotesk's own angular, grid-constructed letterforms. The typeface and the UI shapes reinforce each other: both precise, both built on a formal grid.
 
-- **Buttons and tags:** 4px radius — firm, structured.
-- **Input fields:** 4px radius.
-- **Cards:** 4px radius, or fully square (0px) for hero image containers.
-- **Pill tags** (category labels): 9999px (full) — the only soft shape in the system, used to clearly distinguish metadata chips from interactive elements.
-
-Avoid large radius values (>16px) on any structural container. Circular shapes are reserved for avatar/portrait images only.
+No rounding is introduced at any scale. Circular shapes (e.g. portrait images) are the only exception, where the shape is determined by content not container.
 
 ## Components
 
@@ -178,7 +177,7 @@ The top nav is horizontal and minimal. The site name/logo is set in Space Grotes
 
 ### Project Cards
 
-Cards display a 16:9 or 3:2 thumbnail image, followed by a category/tag row (using `tag` component tokens), and a card title using `{typography.h2}`. The image fills the card top with no border radius on the top edge. On hover, the image should subtly scale (transform: scale(1.02)) with a 200ms ease transition. Cards have no visible border at rest — a `{colors.border}` 1px border appears on hover alongside the image lift shadow.
+Cards display a 16:9 or 3:2 thumbnail image, followed by a category/tag row (using `tag` component tokens), and a card title using `{typography.h2}`. Card titles are rendered as links and use `card-title-link` tokens — `{colors.accent}` green at rest, with underline on hover. The image fills the card top with no border radius on the top edge. At rest, cards have no border or shadow — use `card` tokens. On hover, apply `card-hover` tokens: `scale(1.05)` on the image with a `all 0.25s ease-in-out` transition. No shadow is added at any state.
 
 ### Process Step Labels
 
@@ -190,7 +189,7 @@ Primary CTAs (e.g. "View all projects") use `button-primary` tokens. They sit in
 
 ### Tags / Category Labels
 
-Project category and year metadata uses the `tag` component — small, pill-shaped, surface-subtle background with muted text. These are always non-interactive when used as labels. When used as filters, they adopt `{colors.accent}` background and white text in the selected state.
+Project category and year metadata uses the `tag` component — small, square-cornered, surface-subtle background with muted text. These are always non-interactive when used as labels. When used as filters, they adopt `{colors.accent}` background and white text in the selected state.
 
 ### Contact Links
 
@@ -198,7 +197,7 @@ The contact section renders each method (LinkedIn, Email, Call) as a large H2 Sp
 
 ## Do's and Don'ts
 
-- **Do** use the accent blue exclusively for interactive affordances — links, focus rings, active states, selected tags. Never as decoration.
+- **Do** use the accent green exclusively for interactive affordances — linked card titles, contact links, focus rings, active states, selected tags. Never as decoration.
 - **Do** allow generous whitespace between sections. When in doubt, add more space.
 - **Do** use Space Grotesk exclusively — no other typeface should ever be introduced.
 - **Do** establish hierarchy through size, weight, and colour alone — Regular vs Bold, large vs small, primary vs muted.
@@ -206,6 +205,6 @@ The contact section renders each method (LinkedIn, Email, Call) as a large H2 Sp
 - **Don't** add decorative background colours, gradients, or patterns to section containers. Keep all backgrounds white or surface-subtle.
 - **Don't** use more than two font weights per view (Regular and Bold only).
 - **Don't** use card shadows at rest — only on hover, and keep them subtle.
-- **Don't** use rounded corners larger than 8px on structural containers.
+- **Don't** introduce any border radius — all elements are square. No exceptions.
 - **Don't** centre-align body copy or long-form text. Left-alignment only.
-- **Do** maintain WCAG AA contrast ratios at all times. Primary text on white: 15.3:1. Secondary text on white: 7.4:1. Accent on white: 4.6:1 — passes AA.
+- **Do** maintain WCAG AA contrast ratios at all times. Primary text on white: 15.3:1. Secondary text on white: 7.4:1. Accent green on white: verify passes AA (4.5:1 minimum) — use on large text or UI components where AA Large applies if needed.
