@@ -3,13 +3,11 @@ name: Harry Poole Portfolio
 description: Personal portfolio design system for a senior UX/UI Product Designer. Clean, minimal, and professional — communicating clarity of thought and design craft.
 colors:
   primary: "#1A1A1A"
-  secondary: "#555555"
   accent: "#3f8348"
   surface: "#f9f9f1"
   surface-subtle: "#f0f0e8"
   border: "#E5E5E5"
   on-surface: "#1A1A1A"
-  on-surface-muted: "#6B7280"
 typography:
   display:
     fontFamily: Space Grotesk
@@ -55,6 +53,9 @@ typography:
     fontSize: 14px
     fontWeight: 400
     lineHeight: 1
+borders:
+  strong: "2px solid #000000"
+  subtle: "1px solid #E5E5E5"
 rounded:
   none: 0px
 spacing:
@@ -79,12 +80,12 @@ components:
     textColor: "{colors.surface}"
   button-secondary:
     backgroundColor: "transparent"
-    textColor: "{colors.primary}"
+    textColor: "{colors.on-surface}"
     rounded: "{rounded.none}"
     padding: "12px 24px"
-    borderColor: "{colors.border}"
+    border: "{borders.strong}"
   nav-link:
-    textColor: "{colors.secondary}"
+    textColor: "{colors.on-surface}"
     typography: "{typography.nav}"
   nav-link-hover:
     textColor: "{colors.primary}"
@@ -97,7 +98,7 @@ components:
     imageTransform: "scale(1.05)"
     imageTransition: "all 0.25s ease-in-out"
   card-label:
-    textColor: "{colors.on-surface-muted}"
+    textColor: "{colors.on-surface}"
     typography: "{typography.label}"
   card-title-link:
     textColor: "{colors.accent}"
@@ -106,9 +107,10 @@ components:
     textDecoration: underline
   tag:
     backgroundColor: "{colors.surface-subtle}"
-    textColor: "{colors.secondary}"
+    textColor: "{colors.on-surface}"
     rounded: "{rounded.none}"
     padding: "4px 10px"
+    border: "{borders.subtle}"
     typography: "{typography.label}"
 ---
 
@@ -124,15 +126,22 @@ The target audience is hiring managers, design leads, and product teams in B2B S
 
 The palette is deliberately restrained — near-monochrome with a single interaction accent.
 
-- **Primary (#1A1A1A):** Near-black used for all headline text and primary actions. Warmer than pure black, avoiding harshness.
-- **Secondary (#555555):** Mid-grey for body copy, navigation links, and secondary labels. Readable without competing with headlines.
-- **Accent (#3f8348):** A fresh, confident green used exclusively for interactive elements — linked card titles, contact links, focus rings, and active tags. Signals interaction without dominating.
-- **Surface (#FFFFFF):** Pure white as the primary canvas. The design lives in the open air; backgrounds are always white or near-white.
-- **Surface Subtle (#f0f0e8):** A warm near-white used for project card hover states, tag backgrounds, and section demarcation. Complements the cream surface and keeps the palette clean.
-- **Border (#E5E5E5):** A light mid-tone used for card outlines, dividers, and nav underlines. Structural but invisible at a glance.
-- **On Surface Muted (#6B7280):** Used for metadata text — dates, category labels, captions — subordinate to the main content hierarchy.
+- **On Surface / Primary (#1A1A1A):** The sole text colour for all non-link content — headlines, body copy, labels, metadata, captions. No grey text variants. Hierarchy is achieved through size and weight only.
+- **Accent (#3f8348):** Used exclusively for interactive elements — linked card titles, contact links, focus rings, and active tags. The only colour that deviates from near-black for text.
+- **Surface (#f9f9f1):** The primary page background. Warm off-white rather than pure white — softens long reading sessions and gives the UI a slight editorial quality.
+- **Surface Subtle (#f0f0e8):** A secondary background for use within content — table row alternation, small informational cards, tag backgrounds, and any element that needs to be distinguishable from the main surface without introducing a new colour.
+- **Border (#E5E5E5):** Used for subtle structural dividers on smaller UI elements — tag outlines, table rules, fine separators. Not for main component borders.
 
 Colour is used structurally, not decoratively. The accent green must never appear in decorative illustrations or backgrounds — only on interactive affordances.
+
+## Borders
+
+Two border styles are used, differentiated by context:
+
+- **Strong (`2px solid #000000`):** Applied to main UI components — buttons (secondary variant), input fields, and any structural container that needs a defined edge. The weight reinforces the sharp, formal geometry of the system.
+- **Subtle (`1px solid #E5E5E5`):** Applied to smaller UI elements — tags, table row dividers, fine separators. Present but visually recessive.
+
+Never use `border-subtle` on a primary interactive component, and never use `border-strong` as a decorative divider.
 
 ## Typography
 
@@ -157,7 +166,7 @@ The hero section is asymmetric by intent — a large headline with a single CTA 
 
 ## Elevation & Depth
 
-Depth is achieved almost entirely through whitespace and proximity, not shadows. Cards are distinguished from the background via a subtle 1px border (`{colors.border}`) rather than drop shadows. This keeps the UI flat and refined.
+Depth is achieved through whitespace and proximity, not shadows. Main UI components use `{borders.strong}` to define their edges. Smaller structural elements use `{borders.subtle}`. No drop shadows are used anywhere.
 
 There are no exceptions. Cards do not gain shadow on hover — interaction is communicated entirely through image zoom (`scale(1.05)`, `all 0.25s ease-in-out`). No depth layer is ever added. See `card-hover` component tokens.
 
@@ -173,7 +182,7 @@ No rounding is introduced at any scale. Circular shapes (e.g. portrait images) a
 
 ### Navigation
 
-The top nav is horizontal and minimal. The site name/logo is set in Space Grotesk Bold, left-aligned. Navigation links use `{typography.nav}` in `{colors.secondary}`, transitioning to `{colors.primary}` on hover with no underline by default. Active page link uses `{colors.primary}` and a subtle bottom border in `{colors.primary}`.
+The top nav is horizontal and minimal. The site name/logo is set in Space Grotesk Bold, left-aligned. Navigation links use `{typography.nav}` in `{colors.on-surface}`, with no underline by default. Active page link uses `{colors.primary}` and a subtle bottom border in `{colors.primary}`.
 
 ### Project Cards
 
@@ -181,7 +190,7 @@ Cards display a 16:9 or 3:2 thumbnail image, followed by a category/tag row (usi
 
 ### Process Step Labels
 
-The Define / Design / Prototype / Validate tabs on the Process page are rendered as a horizontal sequence of uppercase labels in `{typography.h3}`, using `{colors.secondary}` at rest and `{colors.primary}` when active, with a 2px underline in `{colors.accent}` as the active indicator.
+The Define / Design / Prototype / Validate tabs on the Process page are rendered as a horizontal sequence of uppercase labels in `{typography.h3}`, using `{colors.on-surface}` at rest and `{colors.on-surface}` when active, with a 2px underline in `{colors.accent}` as the active indicator.
 
 ### Buttons
 
@@ -200,11 +209,14 @@ The contact section renders each method (LinkedIn, Email, Call) as a large H2 Sp
 - **Do** use the accent green exclusively for interactive affordances — linked card titles, contact links, focus rings, active states, selected tags. Never as decoration.
 - **Do** allow generous whitespace between sections. When in doubt, add more space.
 - **Do** use Space Grotesk exclusively — no other typeface should ever be introduced.
-- **Do** establish hierarchy through size, weight, and colour alone — Regular vs Bold, large vs small, primary vs muted.
+- **Do** establish hierarchy through size and weight alone — Regular vs Bold, large vs small. Colour is not used to differentiate text levels.
+- **Do** use `{colors.on-surface}` (#1A1A1A) for all text. The only exception is link text, which uses `{colors.accent}`.
+- **Do** use `{borders.strong}` on main UI components and `{borders.subtle}` on smaller elements and dividers.
+- **Do** use `{colors.surface-subtle}` as a secondary background to differentiate nested or grouped content — table rows, info cards, tag chips.
 - **Do** write category labels and process step labels in all-caps with tracked letter-spacing using `{typography.h3}`.
-- **Don't** add decorative background colours, gradients, or patterns to section containers. Keep all backgrounds white or surface-subtle.
+- **Don't** add decorative background colours, gradients, or patterns to section containers. Backgrounds are `{colors.surface}` or `{colors.surface-subtle}` only.
 - **Don't** use more than two font weights per view (Regular and Bold only).
-- **Don't** use card shadows at rest — only on hover, and keep them subtle.
+- **Don't** use shadows anywhere — at rest or on hover.
 - **Don't** introduce any border radius — all elements are square. No exceptions.
 - **Don't** centre-align body copy or long-form text. Left-alignment only.
-- **Do** maintain WCAG AA contrast ratios at all times. Primary text on white: 15.3:1. Secondary text on white: 7.4:1. Accent green on white: verify passes AA (4.5:1 minimum) — use on large text or UI components where AA Large applies if needed.
+- **Do** maintain WCAG AA contrast ratios at all times. On-surface text on surface: 15.3:1. Accent green on surface: verify passes AA (4.5:1 minimum).

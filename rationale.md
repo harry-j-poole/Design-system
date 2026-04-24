@@ -16,11 +16,11 @@ The intended emotional response is **trust, credibility, and careful thinking** 
 
 ### 1. Single typeface — Space Grotesk only
 
-**What was decided:** The entire interface uses Space Grotesk exclusively — no secondary typeface at any scale or context. Hierarchy is achieved through size, weight (`400` vs `700`), and colour alone.
+**What was decided:** The entire interface uses Space Grotesk exclusively — no secondary typeface at any scale or context. Hierarchy is achieved through size and weight (`400` vs `700`) alone — not colour, not typeface variety.
 
 **Why:** A dual-typeface approach is a common portfolio convention used to create perceived visual richness. For this audience — experienced designers and leads — that richness reads as decoration rather than craft. A single typeface, applied with restraint and precision, signals that hierarchy was achieved through discipline rather than variety. Space Grotesk was chosen specifically for its technical, grid-conscious character: the monospaced-influenced proportions give headlines a structural quality that suits a designer who operates between design and engineering.
 
-**Constraint:** No second typeface may be introduced, even for code samples, captions, or special contexts. If hierarchy is insufficient, the solution is size, weight, or colour — not a new font.
+**Constraint:** No second typeface may be introduced, even for code samples, captions, or special contexts. If hierarchy is insufficient, the solution is size or weight — not a new font, and not a colour change.
 
 **Validation:** To be confirmed
 
@@ -28,13 +28,13 @@ The intended emotional response is **trust, credibility, and careful thinking** 
 
 ### 2. Near-monochrome palette with a single interaction accent
 
-**What was decided:** The palette is near-black (`primary: #1A1A1A`), mid-grey (`secondary: #555555`), and warm off-white (`surface: #f9f9f1`, `surface-subtle: #f0f0e8`) — supplemented by a single accent green (`accent: #3f8348`) used exclusively for interactive affordances. The accent appears on linked card titles, contact links, focus rings, and active filter tags. It never appears as a decorative colour, background fill, or illustrative element.
+**What was decided:** All text uses a single colour: `on-surface: #1A1A1A`. There are no grey text variants for secondary or muted content — hierarchy within text is achieved through size and weight only. The sole colour departure for text is the accent green (`#3f8348`), used exclusively on interactive elements (links, focus rings, active states). Background colours are `surface: #f9f9f1` as the primary canvas and `surface-subtle: #f0f0e8` as a secondary background for grouped or nested content — table rows, informational cards, tag chips. The structural border colour `#E5E5E5` is used on smaller elements only.
 
-**Why:** The audience encounters colour-saturated portfolio sites frequently. Restraint is the differentiator. Near-monochrome establishes credibility and directs attention entirely to the work. The accent green serves a functional purpose — it tells the user "this is interactive" — without competing with the case study content. Green was chosen over blue to avoid the visual language of generic enterprise SaaS; it is confident and fresh without being expressive.
+**Why:** The audience encounters colour-saturated portfolio sites frequently. Restraint is the differentiator. Removing grey text variants forces hierarchy to be solved through typography alone — which is the harder, more disciplined solution, and the one that holds up best at scale. A mid-grey body text is a common default that signals convention rather than intention.
 
-The warm surface tones (`#f9f9f1`, `#f0f0e8`) were chosen over pure white to soften long reading sessions and create a slight editorial quality, reminiscent of good print design. Pure white can read as clinical in the context of a portfolio.
+The warm surface tones were chosen over pure white to soften long reading sessions and give the UI a slight editorial quality. `surface-subtle` provides just enough visual separation for nested content without introducing a new colour — it reads as the same family as the main surface, just slightly cooler.
 
-**Constraint:** The accent colour may not be used on any element that is not interactive. If a new UI element needs colour for decoration or structure, use `surface-subtle` or `border` — not `accent`. Any introduction of additional hues (even neutrals) must be deliberate and recorded here.
+**Constraint:** No grey text variants. If content feels insufficiently differentiated, the solution is a size or weight change — not a colour change. `surface-subtle` may be used freely as a background within content areas. Any introduction of additional hues must be deliberate and recorded here.
 
 **Validation:** To be confirmed
 
@@ -60,13 +60,13 @@ The warm surface tones (`#f9f9f1`, `#f0f0e8`) were chosen over pure white to sof
 
 ---
 
-### 5. Colour used only for interaction — never hierarchy
+### 5. Colour used only for interaction — never hierarchy or decoration
 
-**What was decided:** Accent green (`#3f8348`) is reserved solely for interactive affordances. It is never used to visually distinguish sections, highlight key content, or create emphasis.
+**What was decided:** Colour plays no role in text hierarchy. All non-link text is `#1A1A1A` regardless of its position in the content structure — headlines, body, labels, captions, metadata. The accent green (`#3f8348`) is the only colour used on text, and only when that text is interactive. Colour is not used to create emphasis, section differentiation, or visual weight within prose.
 
-**Why:** If the accent appears on non-interactive elements, the user learns — consciously or not — that green does not reliably mean "clickable." This erodes the signal value of the colour and increases cognitive load. Maintaining strict colour discipline means users only need to learn one rule: green means interaction.
+**Why:** Using grey text for secondary content is a convention so common it has become invisible — it no longer communicates a deliberate decision. Flattening all text to a single colour forces every other aspect of the system (size, weight, spacing, position) to do more work. The result is a more disciplined hierarchy that holds up under scrutiny. It also means the accent green carries an unambiguous signal: the moment a user sees it, they know they can interact. No other colour competes for that meaning.
 
-**Constraint:** Any component that appears interactive but is not (e.g. a decorative callout styled like a link) must not use the accent colour. If a new component is added that is interactive, it should adopt accent on its key affordance.
+**Constraint:** Any component that appears interactive but is not must not use the accent colour. Any component that is interactive should use accent on its key affordance. Grey text variants must not be reintroduced — if a piece of content needs to feel subordinate, reduce its size or weight.
 
 ---
 
@@ -82,14 +82,25 @@ The warm surface tones (`#f9f9f1`, `#f0f0e8`) were chosen over pure white to sof
 
 ---
 
+### 7. Two-tier border system — strong for structure, subtle for detail
+
+**What was decided:** Two border styles are used across the system. Main UI components (buttons, inputs, structural containers) use `2px solid #000000`. Smaller elements and dividers (tags, table rules, separators) use `1px solid #E5E5E5`. No other border values are introduced.
+
+**Why:** A uniform single-weight border across all elements creates a flat, undifferentiated surface — everything competes at the same visual register. The strong border (`2px solid black`) gives primary interactive components a defined, confident edge that reinforces the formal geometry of the system and signals affordance without colour. The subtle border (`1px #E5E5E5`) handles structural detail at a finer scale — separating rows, containing chips — without adding visual weight to areas that should recede. The distinction is functional: strong borders say "this is a component you interact with", subtle borders say "this is a structural division."
+
+**Constraint:** Do not use `borders.strong` as a decorative divider or section separator. Do not use `borders.subtle` as the border on a primary interactive component. If a new component sits ambiguously between the two, default to `borders.strong` — erring toward clarity.
+
+---
+
 ## What this means in practice
 
 These decisions collectively produce a system with a small number of firm constraints:
 
 - One typeface, two weights, no exceptions.
-- Accent green on interactive elements only — never decorative.
+- All text is `#1A1A1A`. Hierarchy is size and weight only — no grey text variants.
+- Accent green on interactive elements only — never for emphasis or decoration.
+- Two border weights: `2px solid #000` on main components, `1px solid #E5E5E5` on detail elements.
 - Depth through whitespace only — no shadows anywhere, at any state.
-- Hierarchy through size, weight, and colour — not variety.
 - Spacing is not negotiable to fit content; content is edited to fit the spacing.
 
 [design.md](design.md) contains the token values and component rules that implement these decisions. Changes to tokens should be traced back to a decision recorded here.
